@@ -9,13 +9,17 @@ int main()
 	cudaError_t error;
 	cudaDeviceProp deviceProp;
 
+	cout << "This program is using the Nvidia CUDA Toolkit " << CUDART_VERSION / 1000 << "." << (CUDART_VERSION % 1000) / 10 << endl << endl;
 	error = cudaDriverGetVersion(&version);
 	if (error != cudaSuccess)
 	{
 		cout << cudaGetErrorString(error) << endl;
 		return -1;
 	}
-	cout << "The driver supports CUDA version " << version / 100.0 << endl;
+
+	int major = version / 1000;
+	int minor = (version - (major * 1000)) / 10;
+	cout << "The driver supports CUDA up to version " << major << "." << minor << endl;
 
 	error = cudaGetDeviceCount(&deviceCount);
 	if(error!=cudaSuccess)
@@ -38,18 +42,32 @@ int main()
 		{
 			cout << endl;
 			cout << "Device " << device << ": " << deviceProp.name << endl;
-			cout << "   Compute Capability " << deviceProp.major << "." << deviceProp.minor << endl;
-			cout << "   " << deviceProp.clockRate / 1000 << " MHz clock rate" << endl;
+			cout << "   " << deviceProp.clockRate/1000 << " MHz clock rate" << endl;
 			cout << "   " << deviceProp.memoryClockRate/1000 << " MHz memory clock rate" << endl;
-			cout << "   " << deviceProp.totalGlobalMem << " bytes total global memory" << endl;
-			cout << "   " << deviceProp.sharedMemPerMultiprocessor << " bytes shared memory per multiprocessor" << endl;
-			cout << "   " << deviceProp.totalConstMem << " bytes total constant memory" << endl;
+			cout << "   Compute Capability " << deviceProp.major << "." << deviceProp.minor << endl;
 			cout << "   " << deviceProp.multiProcessorCount << " multiprocessors" << endl;
+/*			if(deviceProp.major<3)
+				cout << "   max 8 resident blocks per multiprocessor" << endl;
+			else
+				cout << "   max 16 resident blocks per multiprocessor" << endl;
+			cout << "   max " << deviceProp.regsPerBlock << " registers per block" << endl;
+			if(deviceProp.major==1)
+				cout << "   max 128 registers per thread" << endl;
+			if(deviceProp.major==2)
+				cout << "   max 63 registers per thread" << endl;
+			if(deviceProp.major==3)
+			{
+				if(deviceProp.minor==5)
+					cout << "   max 255 registers per thread" << endl;
+				else
+					cout << "   max 63 registers per thread" << endl;
+			}
+*/
 			cout << "   max " << deviceProp.maxThreadsPerBlock << " threads per Block" << endl;
 			cout << "   max " << deviceProp.maxThreadsPerMultiProcessor << " threads per multiprocessor" << endl;
 			cout << "   max " << deviceProp.regsPerBlock << " registers per Block" << endl;
 			cout << "   max " << deviceProp.regsPerMultiprocessor << " registers per multiprocessor" << endl;
-			cout << "   max " << deviceProp.maxGridSize[0] << "," << deviceProp.maxGridSize[1] << "," << deviceProp.maxGridSize[2] << " grid size (x,y,z)" << endl;
+
 		}
 	}
 	return 0;

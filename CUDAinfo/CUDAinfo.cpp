@@ -24,12 +24,15 @@ int main()
 	error = cudaGetDeviceCount(&deviceCount);
 	if(error!=cudaSuccess)
 	{
-		if(error==cudaErrorNoDevice)
-			cout << "No CUDA capable device found" << endl;
-		else
-			cout << cudaGetErrorString(error) << endl;
+		cout << "cudaGetDeviceCount() error: " << cudaGetErrorString(error) << endl;
 		return -1;
 	}
+	else
+		if (deviceCount == 0)
+		{
+			cout << "No CUDA device found" << endl;
+			return -1;
+		}
 
 	for (device = 0; device<deviceCount; ++device)
 	{
@@ -37,6 +40,8 @@ int main()
 		if(error!=cudaSuccess)
 		{
 			cout << "Can't get properties of device " << device << ": " << cudaGetErrorString(error) << endl;
+			cout << "cudaGetDeviceProperties() error:" << cudaGetErrorString(error) << endl;
+			return -1;
 		}
 		else
 		{

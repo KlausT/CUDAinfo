@@ -47,27 +47,13 @@ int main()
 		{
 			cout << endl;
 			cout << "Device " << device << ": " << deviceProp.name << endl;
-			cout << "   " << deviceProp.clockRate/1000 << " MHz clock rate" << endl;
-			cout << "   " << deviceProp.memoryClockRate/1000 << " MHz memory clock rate" << endl;
+			cout << "   " << deviceProp.totalGlobalMem << " bytes VRAM" << endl;
+			cout << "   " << deviceProp.memoryBusWidth << " bits memorybus width" << endl;
+/*			cout << "   " << deviceProp.clockRate / 1000 << " MHz clock rate" << endl;              ** deprecated **
+			cout << "   " << deviceProp.memoryClockRate/1000 << " MHz memory clock rate" << endl;   ** deprecated ** */
 			cout << "   Compute Capability " << deviceProp.major << "." << deviceProp.minor << endl;
 			cout << "   " << deviceProp.multiProcessorCount << " multiprocessors" << endl;
-/*			if(deviceProp.major<3)
-				cout << "   max 8 resident blocks per multiprocessor" << endl;
-			else
-				cout << "   max 16 resident blocks per multiprocessor" << endl;
-			cout << "   max " << deviceProp.regsPerBlock << " registers per block" << endl;
-			if(deviceProp.major==1)
-				cout << "   max 128 registers per thread" << endl;
-			if(deviceProp.major==2)
-				cout << "   max 63 registers per thread" << endl;
-			if(deviceProp.major==3)
-			{
-				if(deviceProp.minor==5)
-					cout << "   max 255 registers per thread" << endl;
-				else
-					cout << "   max 63 registers per thread" << endl;
-			}
-*/
+
 			cout << "   max " << deviceProp.maxThreadsPerBlock << " threads per Block" << endl;
 			cout << "   max " << deviceProp.maxThreadsPerMultiProcessor << " threads per multiprocessor" << endl;
 			cout << "   max " << deviceProp.regsPerBlock << " registers per Block" << endl;

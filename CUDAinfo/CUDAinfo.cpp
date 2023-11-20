@@ -9,6 +9,7 @@ int main()
 	cudaError_t error;
 	cudaDeviceProp deviceProp;
 
+	cout << "CUDAInfo 2.0" << endl;
 	cout << "This program is using the Nvidia CUDA Toolkit " << CUDART_VERSION / 1000 << "." << (CUDART_VERSION % 1000) / 10 << endl << endl;
 	error = cudaDriverGetVersion(&version);
 	if (error != cudaSuccess)
@@ -46,11 +47,18 @@ int main()
 		else
 		{
 			cout << endl;
-			cout << "Device " << device << ": " << deviceProp.name << endl;
+			cout << "Device " << device << ": " << deviceProp.name;
+			if (deviceProp.integrated)
+				cout << "   " << "(integrated graphics)" << endl;
+			else
+				cout << endl;
 			cout << "   " << deviceProp.totalGlobalMem << " bytes VRAM" << endl;
 			cout << "   " << deviceProp.memoryBusWidth << " bits memorybus width" << endl;
+			cout << "   " << deviceProp.l2CacheSize << " bytes L2 cache size" << endl;
+
 /*			cout << "   " << deviceProp.clockRate / 1000 << " MHz clock rate" << endl;              ** deprecated **
 			cout << "   " << deviceProp.memoryClockRate/1000 << " MHz memory clock rate" << endl;   ** deprecated ** */
+
 			cout << "   Compute Capability " << deviceProp.major << "." << deviceProp.minor << endl;
 			cout << "   " << deviceProp.multiProcessorCount << " multiprocessors" << endl;
 

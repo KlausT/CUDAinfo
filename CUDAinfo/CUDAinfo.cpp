@@ -55,6 +55,7 @@ int main()
 			cout << "   " << deviceProp.totalGlobalMem << " bytes VRAM" << endl;
 			cout << "   " << deviceProp.memoryBusWidth << " bits memorybus width" << endl;
 			cout << "   " << deviceProp.l2CacheSize << " bytes L2 cache size" << endl;
+			cout << "   " << deviceProp.totalConstMem << " bytes constant memory size" << endl;
 
 /*			cout << "   " << deviceProp.clockRate / 1000 << " MHz clock rate" << endl;              ** deprecated **
 			cout << "   " << deviceProp.memoryClockRate/1000 << " MHz memory clock rate" << endl;   ** deprecated ** */
